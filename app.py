@@ -4,10 +4,9 @@ import pandas as pd
 import numpy as np
 import plotly.express as px
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score, f1_score
+from sklearn.ensemble import RandomForestClassifier  # fixes your earlier crashfrom sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score, f1_score
 from dataset_generator import LANGUAGES, generate_samples, get_reference_dfa
-from automaton import DFA
+from automaton import DFA,NFA
 from inference import build_pta, learn_dfa
 from ml_classifier import extract_features, train_and_evaluate
 from visualization import render_dfa
