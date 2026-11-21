@@ -10,7 +10,13 @@ from automaton import DFA,NFA
 from inference import build_pta, learn_dfa
 from ml_classifier import extract_features, train_and_evaluate
 from visualization import render_dfa
-
+from sklearn.metrics import (
+    accuracy_score,
+    precision_score,
+    recall_score,
+    f1_score,
+    confusion_matrix
+)
 st.set_page_config(page_title='Automata Learning Lab',layout='wide',page_icon='🤖')
 st.markdown('''<style>.main{background:#f7f9fc}.block-container{padding-top:1.4rem}.hero{padding:1.2rem 1.5rem;background:linear-gradient(110deg,#101e38,#263e64);border-radius:18px;color:white;margin-bottom:1rem}.hero h1{margin:0;color:white}.metric-card{padding:1rem;border:1px solid #e5eaf2;border-radius:14px;background:white}</style>''',unsafe_allow_html=True)
 
