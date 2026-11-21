@@ -38,7 +38,11 @@ def generate_samples(language_name, n_positive, n_negative, max_length, noise_fr
     samples=[(s,1) for s in pos[:n_positive]]+[(s,0) for s in neg[:n_negative]]
     random.shuffle(samples)
     flips=round(len(samples)*noise_fraction)
-    for i in random.sample(range(len(samples)), min(flips,len(samples))): samples[i]=(samples[i][0],1-samples[i][1])
+    # Flip labels per *string*, not per sample slot: when duplicates exist (see
+    # above), flipping only one copy would give the same string both labels,
+    # which no DFA can represent and which learn_dfa rejects as contradictory.
+    flipped={samples[i][0] for i in random.sample(range(len(samples)), min(flips,len(samples)))}
+    samples=[(s,1-y) if s in flipped else (s,y) for s,y in samples]
     return [s for s,_ in samples],[y for _,y in samples]
 
 def get_reference_dfa(language_name):
