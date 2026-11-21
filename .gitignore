@@ -29,7 +29,7 @@ htmlcov/
 .pyright/
 
 # Streamlit
-.streamlit/secrets.toml/
+.streamlit/secrets.toml
 
 # IDE and editor files
 .vscode/

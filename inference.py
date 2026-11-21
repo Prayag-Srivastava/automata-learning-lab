@@ -133,7 +133,9 @@ def _merge_with_folding(pta_transitions, pta_accepting, parent,
 
     If both classes have a transition on the same symbol, their destination
     classes must also be merged. This recursive propagation is RPNI folding.
-    Returns a new parent map, or None if acceptance labels conflict.
+    Returns a new parent map. Accepting and non-accepting PTA states may be
+    merged: a non-accepting PTA state is merely *unlabelled*, not known to be
+    negative. Consistency with the negatives is checked by the caller.
     """
     trial = parent.copy()
     pending = [(state_a, state_b)]
@@ -149,11 +151,6 @@ def _merge_with_folding(pta_transitions, pta_accepting, parent,
         members = _members(trial)
         group_a = members[ra]
         group_b = members[rb]
-
-        accepts_a = any(s in pta_accepting for s in group_a)
-        accepts_b = any(s in pta_accepting for s in group_b)
-        if accepts_a != accepts_b:
-            return None
 
         # Deterministic representative selection; preserve the root if involved.
         if 0 in group_a:
